@@ -17,4 +17,9 @@ SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 # the project's entire directory structure.
 ADD_SUBDIRECTORY (src)
 ADD_SUBDIRECTORY (tests/cmockalib)
+ADD_SUBDIRECTORY (tests/test_dog_lib)
 
+enable_testing()
+
+# does the ani run
+add_test(NAME Runs COMMAND ani)
