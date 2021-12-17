@@ -1,27 +1,35 @@
-FLAGS := -Wl,-rpath=.
-FLAGS += -Wl,-Map=ani.map.txt
-FLAGS += -Wl,-t
+include ../buildenv.mk
+CFLAGS   += $(COMMON_FLAGS)
 
-#include the header file search path
-FLAGS += -Idog_lib -Icat_lib
+LD_FLAGS += $(COMMON_LDFLAGS)
+LD_FLAGS += -Wl,-rpath .
 
-FLAGS += -g
+INC_PATH := $(ROOT_DIR)/inc
 
-all:ani
+all : dependent runtime lib_rating 
 
-main.o:main.c
-	gcc $(FLAGS) -c main.c
+.PHONY : dependent runtime lib_rating clean
 
-dog:
-	make -C dog_lib
+dependent : lib_rating dependent.o
+	if [! -d $(ROOT_DIR)/bin ]; then mkdir -p $(ROOT_DIR)/bin; fi
+	gcc dependent.o -L$(ROOT_DIR)/bin -lratings $(LD_FLAGS) -o $(ROOT_DIR)/bin/$@
 
-cat:
-	make -C cat_lib
+dependent.o : dependent.c
+	gcc -I$(INC_PATH) -c $(CFLAGS) dependent.c
 
-ani: dog cat main.o
-	gcc $(FLAGS) main.o -L. -L../bin -ldog -lcat -o ../bin/ani
 
+runtime : lib_rating runtime.o
+	gcc runtime.o -ldl -o $(ROOT_DIR)/bin/$@
+
+runtime.o : runtime.c
+	gcc -I$(INC_PATH) -c $(CFLAGS) $^
+
+lib_rating:
+	make -C lib_rating
+
+
+.PHONY: lib_rating dependent runtime clean all
 clean:
-	make -C dog_lib clean
-	make -C cat_lib clean
-	rm -rf *.o ani.map.txt
+	make -C lib_rating clean
+	rm -rf $(ROOT_DIR)/bin/runtime $(ROOT_DIR)/bin/dependent
+	rm -rf runtime.o dependent.o
