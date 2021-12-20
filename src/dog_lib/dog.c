@@ -7,5 +7,7 @@
 
 void dog(void) 
 {
-	printf("Dog been bred by humans for a long time\n");
+	FILE *out=fopen("name_of_file.txt","w");
+	fputs("Hello File",out);
+	fclose(out);
 }
