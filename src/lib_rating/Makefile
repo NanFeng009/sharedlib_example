@@ -33,4 +33,5 @@ clean:
 
 #libratings.so        # is called the linker-name used for linking.
 #libratings.so.1      # is called the soname used by the operating system loader.
+					  #     ldconfig will generate this file automatically
 #libratings.so.1.0    # is called the real-name which is updated by the library maintainer.
