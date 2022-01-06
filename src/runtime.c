@@ -102,4 +102,9 @@ int main(int argc, char **argv) {
  * https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html
  * also can refer
  * https://wwww.geeksforgeeks.org/function-pointer-in-c
+ * declare and initialization
+ * void (*fun_ptr)(int) = fun;
+ * void (*fun_ptr)(int) = &fun;
+ * call function:
+ * (*fun_ptr)(10); or fun_ptr(10);
  */
