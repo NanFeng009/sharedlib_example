@@ -96,3 +96,10 @@ int main(int argc, char **argv) {
     printf("[end_test]\n");
     return 0;
 }
+
+/*
+ * dynamic load code from 
+ * https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html
+ * also can refer
+ * https://wwww.geeksforgeeks.org/function-pointer-in-c
+ */
